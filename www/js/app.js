@@ -1,13 +1,16 @@
 angular.module('GYST', ['ionic'])
 
-.controller('GystCtrl', function($scope, $ionicModal, $ionicListDelegate) {
+.controller('GystCtrl', function($scope, $ionicModal, $ionicListDelegate, $http) {
   // No need for testing data anymore
-  $scope.tasks = [{title: "Do a thing"}, 
-  				  {title: "Do another thing"}, 
-  				  {title: "Do one final thing."},
-  				  {title: "Contemplate the mysteries."}];
+
+  $scope.tasks = [{title: "Go out tonight!"}, 
+  				  {title: "Drink five shots of Jack!!"}, 
+  				  {title: "Drin k  more !"},
+  				  {title: "Csll mfy ex girlfsiend"}];
 
   $scope.shouldShowDelete = false;
+  $scope.shouldShowReorder = false;
+
 
   // Create and load the Modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
@@ -26,17 +29,21 @@ angular.module('GYST', ['ionic'])
     task.title = "";
   };
 
-  $scope.showEdit = function(){
+  $scope.showDelete = function(){
   	$scope.shouldShowDelete = !$scope.shouldShowDelete;
   };
 
-  $scope.showReorderButtons = function(){
-  	$ionicListDelegate.showReorder(true);
+  $scope.showReorder = function(){
+  	$scope.shouldShowReorder = !$scope.shouldShowReorder;
   };
 
   // Open our new task modal
   $scope.newTask = function() {
-    $scope.taskModal.show();
+    $scope.taskModal.show()
+    .finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
   };
 
   // Close the new task modal
