@@ -7,6 +7,8 @@ angular.module('GYST', ['ionic'])
   				  {title: "Do one final thing."},
   				  {title: "Contemplate the mysteries."}];
 
+  $scope.shouldShowDelete = false;
+
   // Create and load the Modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
     $scope.taskModal = modal;
@@ -22,6 +24,10 @@ angular.module('GYST', ['ionic'])
     });
     $scope.taskModal.hide();
     task.title = "";
+  };
+
+  $scope.showEdit = function(){
+  	$scope.shouldShowDelete = !$scope.shouldShowDelete;
   };
 
   $scope.showReorderButtons = function(){
