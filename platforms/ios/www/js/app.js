@@ -3,14 +3,15 @@ angular.module('GYST', ['ionic'])
 .controller('GystCtrl', function($scope, $ionicModal, $ionicListDelegate, $http) {
   // No need for testing data anymore
 
-  $scope.tasks = [{title: "Go out tonight!"}, 
-  				  {title: "Drink five shots of Jack!!"}, 
-  				  {title: "Drin k  more !"},
-  				  {title: "Csll mfy ex girlfsiend"}];
+  $scope.tasks = [{title: "Do a thing"}, 
+  				  {title: "Contemplate the mysteries"},
+  				  {title: "Eat a burrito"}];
+
+  $scope.items = [{title: "A seedy old man just consumed an entire city #yolo"},
+			      {title: "Drop off dog at church"}];
 
   $scope.shouldShowDelete = false;
   $scope.shouldShowReorder = false;
-
 
   // Create and load the Modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
@@ -22,7 +23,7 @@ angular.module('GYST', ['ionic'])
 
   // Called when the form is submitted
   $scope.createTask = function(task) {
-    $scope.tasks.push({
+    $scope.tasks.unshift({
       title: task.title
     });
     $scope.taskModal.hide();
